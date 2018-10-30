@@ -29,7 +29,7 @@ app.get("/urls/new", (req, res) => {
 app.post("/urls", (req, res) => {
 
   console.log(req.body); 
-  
+
   res.send("Ok");        
 });
 
@@ -52,3 +52,18 @@ app.get("/hello", (req, res) => {
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}!`);
 });
+
+//generate random alphanumeric string 6 length
+function generateRandomString() {
+  const howMany = 6;
+  const alphanumeric = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+  var randomAlpha = '';
+
+  for (let ii = 0; ii < howMany; ii++) {
+    randomAlpha += alphanumeric.charAt(
+      Math.floor(Math.random() * Math.floor(alphanumeric.length))
+    );
+  }
+  return randomAlpha;
+}
+
