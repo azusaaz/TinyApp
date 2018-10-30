@@ -21,6 +21,7 @@ app.get("/", (req, res) => {
 //Display urls with the template
 app.get("/urls", (req, res) => {
   let templateVars = { urls: urlDatabase };
+
   res.render("urls_index", templateVars);
 });
 
@@ -33,8 +34,9 @@ app.get("/urls/new", (req, res) => {
 app.post("/urls", (req, res) => {
 
   console.log(req.body); 
-
-  res.send("Ok");        
+   urlDatabase[generateRandomString()] = req.body.longURL;
+   res.redirect("/urls");
+  //res.send("Ok");        
 });
 
 //Redirect to a longURL page from the passed shortURL
