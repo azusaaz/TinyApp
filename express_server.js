@@ -10,7 +10,13 @@ var urlDatabase = {
 app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
-  res.send("Hello!");
+  let templateVars = { greeting: 'Hello World!' };
+  res.render("hello_world", templateVars);
+});
+
+app.get("/urls", (req, res) => {
+  let templateVars = { urls: urlDatabase };
+  res.render("urls_index", templateVars);
 });
 
 app.get("urls.json", (req, res) => {
