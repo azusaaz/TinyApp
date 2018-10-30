@@ -12,20 +12,24 @@ var urlDatabase = {
 
 app.set("view engine", "ejs");
 
+//Default
 app.get("/", (req, res) => {
   let templateVars = { greeting: 'Hello World!' };
   res.render("hello_world", templateVars);
 });
 
+//Display urls with the template
 app.get("/urls", (req, res) => {
   let templateVars = { urls: urlDatabase };
   res.render("urls_index", templateVars);
 });
 
+//Show a form
 app.get("/urls/new", (req, res) => {
   res.render("urls_new");
 });
 
+//Receive the form submission
 app.post("/urls", (req, res) => {
 
   console.log(req.body); 
@@ -33,6 +37,7 @@ app.post("/urls", (req, res) => {
   res.send("Ok");        
 });
 
+//Display one url with the template
 app.get("/urls/:id", (req, res) => {
   let templateVars = { 
     shortURL: req.params.id,
@@ -41,19 +46,22 @@ app.get("/urls/:id", (req, res) => {
   res.render("urls_show", templateVars);
 });
 
+//Display database
 app.get("/urls.json", (req, res) => {
   res.json(urlDatabase);
 });
 
+//Hello for test
 app.get("/hello", (req, res) => {
   res.send("<html><body>Hello <b>World</b></body></html>\n");
 });
 
+//Starter message
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}!`);
 });
 
-//generate random alphanumeric string 6 length
+//Generate random alphanumeric string 6 length to make a shortURL
 function generateRandomString() {
   const howMany = 6;
   const alphanumeric = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
