@@ -37,6 +37,12 @@ app.post("/urls", (req, res) => {
   res.send("Ok");        
 });
 
+//Redirect to a longURL page from the passed shortURL
+app.get("/u/:shortURL", (req, res) => {
+  let longURL = urlDatabase[req.params.shortURL];
+  res.redirect(longURL);
+});
+
 //Display one url with the template
 app.get("/urls/:id", (req, res) => {
   let templateVars = { 
