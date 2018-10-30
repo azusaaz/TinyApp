@@ -19,7 +19,7 @@ app.get("/urls", (req, res) => {
   res.render("urls_index", templateVars);
 });
 
-app.get("urls.json", (req, res) => {
+app.get("/urls.json", (req, res) => {
   res.json(urlDatabase);
 });
 
