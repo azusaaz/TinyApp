@@ -90,6 +90,14 @@ app.post("/login", (req, res) => {
   res.redirect("/urls");
 });
 
+//logout
+app.post("/logout", (req, res) => {
+  
+  res.clearCookie("username");
+  
+  res.redirect("/urls");
+});
+
 //Display database
 app.get("/urls.json", (req, res) => {
   res.json(urlDatabase);
