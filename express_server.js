@@ -61,9 +61,12 @@ app.get("/urls.json", (req, res) => {
   res.json(urlDatabase);
 });
 
-//Hello for test
-app.get("/hello", (req, res) => {
-  res.send("<html><body>Hello <b>World</b></body></html>\n");
+//Delete data by id
+app.post("/urls/:id/delete", (req, res) => {
+
+   delete urlDatabase[req.params.id];
+   
+   res.redirect("/urls");       
 });
 
 //Starter message
