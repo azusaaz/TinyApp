@@ -11,7 +11,7 @@
     <li style="list-style-type:none;">ShortURL:<a href="<%= longURL %>">
         <%= shortURL %>
       </a> </li>
-      <form method="POST" action="/urls/9sm5xK">
+      <form method="POST" action="/urls/<%= shortURL %>">
         <input name="newUrl" type="text">
         <input type="submit" value="update">
       </form>
