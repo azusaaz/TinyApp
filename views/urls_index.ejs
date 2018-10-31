@@ -11,13 +11,15 @@
     <% 
  for(url in urls){ %>
     <li><a href="#">
-      <%= url %> 
-      <%= urls[url] %>
-      
-    </a> <form method="POST" action="/urls/9sm5xK/delete">...
-    </form></li>
+        <%= url %>
+        <%= urls[url] %>
+      </a>
+      <form method="POST" action="/urls/9sm5xK/delete">
+        <button style="cursor: pointer">delete</button>
+      </form>
+    </li>
     <% }; %>
-   
+
 
   </ul>
 </body>
