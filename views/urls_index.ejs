@@ -17,8 +17,11 @@
         <a href="<%= urls[url] %>">
           <%= urls[url] %>
         </a>
-      <form method="POST" action="/urls/<%= url %>/delete">
-        <input type="submit" value="delete" style="cursor: pointer">
+        &nbsp;
+        <a href="/urls/<%= url %>">Edit</a>
+        &nbsp;
+      <form style="display: inline-block" method="POST" action="/urls/<%= url %>/delete">
+        <input  type="submit" value="delete" style="cursor: pointer">
       </form>
     </li>
     <% }; %>
