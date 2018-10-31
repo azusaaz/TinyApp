@@ -27,7 +27,7 @@ app.get("/", (req, res) => {
 
 //Display urls with the template
 app.get("/urls", (req, res) => {
-  
+
   let templateVars = {
     username: req.cookies["username"],
     urls: urlDatabase
