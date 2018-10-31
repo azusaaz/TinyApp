@@ -40,7 +40,7 @@ app.get("/urls/new", (req, res) => {
 //Receive the form submission
 app.post("/urls", (req, res) => {
 
-  console.log(req.body);
+  console.log("body",req.body);
   let newShortURL = generateRandomString();
   urlDatabase[newShortURL] = req.body.longURL;
   res.redirect(`/urls/${newShortURL}`);
@@ -65,6 +65,14 @@ app.get("/urls/:id", (req, res) => {
 //Edit data by id
 app.post("/urls/:id", (req, res) => {
   urlDatabase[req.params.id] = req.body["newUrl"];
+  res.redirect("/urls");
+});
+
+//login and store username in a cookie
+app.post("/login", (req, res) => {
+  
+  res.cookie("username", req.body.username);
+
   res.redirect("/urls");
 });
 
