@@ -2,11 +2,13 @@ var express = require("express");
 var app = express();
 var PORT = 8080; // default port 8080
 var addressPrefix = `http://localhost:${PORT}/`
+var cookieParser = require('cookie-parser')
 
 const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({
   extended: true
 }));
+app.use(cookieParser())
 
 var urlDatabase = {
   "b2xVn2": "http://www.lighthouselabs.ca",
@@ -25,8 +27,10 @@ app.get("/", (req, res) => {
 
 //Display urls with the template
 app.get("/urls", (req, res) => {
+  let cookie = cookieParser.JSONCookies(req.cookies);
+
   let templateVars = {
-    username: req.cookies["username"],
+    username: cookie["username"],
     urls: urlDatabase
   };
 
@@ -35,8 +39,10 @@ app.get("/urls", (req, res) => {
 
 //Show a form
 app.get("/urls/new", (req, res) => {
+  let cookie = cookieParser.JSONCookies(req.cookies);
+
   let templateVars = {
-    username: req.cookies["username"],
+    username: cookie["username"],
   };
   res.render("urls_new", templateVars);
 });
@@ -58,8 +64,10 @@ app.get("/u/:shortURL", (req, res) => {
 
 //Display one url with the template
 app.get("/urls/:id", (req, res) => {
+  let cookie = cookieParser.JSONCookies(req.cookies);
+
   let templateVars = {
-    username: req.cookies["username"],
+    username: cookie["username"],
     addressPrefix,
     shortURL: req.params.id,
     longURL: urlDatabase[req.params.id]
@@ -77,6 +85,7 @@ app.post("/urls/:id", (req, res) => {
 app.post("/login", (req, res) => {
   
   res.cookie("username", req.body.username);
+  
 
   res.redirect("/urls");
 });
