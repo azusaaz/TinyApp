@@ -4,7 +4,9 @@ var PORT = 8080; // default port 8080
 var addressPrefix = `http://localhost:${PORT}/`
 
 const bodyParser = require("body-parser");
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 
 var urlDatabase = {
   "b2xVn2": "http://www.lighthouselabs.ca",
@@ -15,13 +17,17 @@ app.set("view engine", "ejs");
 
 //Default
 app.get("/", (req, res) => {
-  let templateVars = { greeting: 'Hello World!' };
+  let templateVars = {
+    greeting: 'Hello World!'
+  };
   res.render("hello_world", templateVars);
 });
 
 //Display urls with the template
 app.get("/urls", (req, res) => {
-  let templateVars = { urls: urlDatabase };
+  let templateVars = {
+    urls: urlDatabase
+  };
 
   res.render("urls_index", templateVars);
 });
@@ -34,10 +40,10 @@ app.get("/urls/new", (req, res) => {
 //Receive the form submission
 app.post("/urls", (req, res) => {
 
-  console.log(req.body); 
-   let newShortURL = generateRandomString();
-   urlDatabase[newShortURL] = req.body.longURL;
-   res.redirect(`/urls/${newShortURL}`);       
+  console.log(req.body);
+  let newShortURL = generateRandomString();
+  urlDatabase[newShortURL] = req.body.longURL;
+  res.redirect(`/urls/${newShortURL}`);
 });
 
 //Redirect to a longURL page from the passed shortURL
@@ -48,10 +54,10 @@ app.get("/u/:shortURL", (req, res) => {
 
 //Display one url with the template
 app.get("/urls/:id", (req, res) => {
-  let templateVars = { 
+  let templateVars = {
     addressPrefix,
     shortURL: req.params.id,
-    longURL: urlDatabase[req.params.id] 
+    longURL: urlDatabase[req.params.id]
   };
   res.render("urls_show", templateVars);
 });
@@ -64,9 +70,9 @@ app.get("/urls.json", (req, res) => {
 //Delete data by id
 app.post("/urls/:id/delete", (req, res) => {
 
-   delete urlDatabase[req.params.id];
-   
-   res.redirect("/urls");       
+  delete urlDatabase[req.params.id];
+
+  res.redirect("/urls");
 });
 
 //Starter message
@@ -87,4 +93,3 @@ function generateRandomString() {
   }
   return randomAlpha;
 }
-
