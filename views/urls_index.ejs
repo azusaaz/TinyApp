@@ -10,10 +10,13 @@
   <ul>
     <% 
  for(url in urls){ %>
-    <li><a href="#">
-        <%= url %>
-        <%= urls[url] %>
-      </a>
+    <li><a href="<%= urls[url] %>">
+      <%= url %>
+        </a>
+        &nbsp;
+        <a href="<%= urls[url] %>">
+          <%= urls[url] %>
+        </a>
       <form method="POST" action="/urls/9sm5xK/delete">
         <input type="submit" value="delete" style="cursor: pointer">
       </form>
