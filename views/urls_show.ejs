@@ -8,15 +8,15 @@
 <body>
   <% include ./partials/_header.ejs %>
   <ul>
-    <li style="list-style-type:none;"><a href="<%= longURL %>">
-        <%=addressPrefix%><%= shortURL %>
-      </a>(
-      <%= longURL %>) </li>
+    <li style="list-style-type:none;">ShortURL:<a href="<%= longURL %>">
+        <%= shortURL %>
+      </a> </li>
+      <form method="POST" action="/urls/9sm5xK">
+        <input name="newUrl" type="text">
+        <input type="submit" value="update">
+      </form>
   </ul>
-  <form method="POST" action="/urls/9sm5xK">
-    <input name="newUrl" type="text">
-    <input type="submit">
-  </form>
+
 </body>
 
 </html>
