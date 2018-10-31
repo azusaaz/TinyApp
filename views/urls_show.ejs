@@ -8,12 +8,11 @@
 <body>
   <% include ./partials/_header.ejs %>
   <ul>
-      
-      <li style=><a href="<%= longURL %>">
-          <%=addressPrefix%><%= shortURL %>
-      </a></li>
-      
-    </ul>
+    <li style="list-style-type:none;"><a href="<%= longURL %>">
+        <%=addressPrefix%><%= shortURL %>
+      </a>(
+      <%= longURL %>) </li>
+  </ul>
 </body>
 
 </html>
