@@ -26,6 +26,7 @@ app.get("/", (req, res) => {
 //Display urls with the template
 app.get("/urls", (req, res) => {
   let templateVars = {
+    username: req.cookies["username"],
     urls: urlDatabase
   };
 
@@ -34,7 +35,10 @@ app.get("/urls", (req, res) => {
 
 //Show a form
 app.get("/urls/new", (req, res) => {
-  res.render("urls_new");
+  let templateVars = {
+    username: req.cookies["username"],
+  };
+  res.render("urls_new", templateVars);
 });
 
 //Receive the form submission
@@ -55,6 +59,7 @@ app.get("/u/:shortURL", (req, res) => {
 //Display one url with the template
 app.get("/urls/:id", (req, res) => {
   let templateVars = {
+    username: req.cookies["username"],
     addressPrefix,
     shortURL: req.params.id,
     longURL: urlDatabase[req.params.id]
@@ -107,3 +112,4 @@ function generateRandomString() {
   }
   return randomAlpha;
 }
+
