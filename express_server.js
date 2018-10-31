@@ -1,6 +1,7 @@
 var express = require("express");
 var app = express();
 var PORT = 8080; // default port 8080
+var addressPrefix = `http://localhost:${PORT}/`
 
 const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({extended: true}));
@@ -36,8 +37,7 @@ app.post("/urls", (req, res) => {
   console.log(req.body); 
    let newShortURL = generateRandomString();
    urlDatabase[newShortURL] = req.body.longURL;
-   res.redirect(`/urls/${newShortURL}`);
-  //res.send("Ok");        
+   res.redirect(`/urls/${newShortURL}`);       
 });
 
 //Redirect to a longURL page from the passed shortURL
@@ -49,6 +49,7 @@ app.get("/u/:shortURL", (req, res) => {
 //Display one url with the template
 app.get("/urls/:id", (req, res) => {
   let templateVars = { 
+    addressPrefix,
     shortURL: req.params.id,
     longURL: urlDatabase[req.params.id] 
   };
