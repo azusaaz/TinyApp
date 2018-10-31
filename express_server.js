@@ -50,7 +50,6 @@ app.get("/urls/new", (req, res) => {
 //Receive the form submission
 app.post("/urls", (req, res) => {
 
-  console.log("body",req.body);
   let newShortURL = generateRandomString();
   urlDatabase[newShortURL] = req.body.longURL;
   res.redirect(`/urls/${newShortURL}`);
@@ -83,18 +82,17 @@ app.post("/urls/:id", (req, res) => {
 
 //login and store username in a cookie
 app.post("/login", (req, res) => {
-  
+
   res.cookie("username", req.body.username);
-  
 
   res.redirect("/urls");
 });
 
-//logout
+//logout and clear cookie
 app.post("/logout", (req, res) => {
-  
+
   res.clearCookie("username");
-  
+
   res.redirect("/urls");
 });
 
@@ -129,4 +127,3 @@ function generateRandomString() {
   }
   return randomAlpha;
 }
-
