@@ -62,6 +62,12 @@ app.get("/urls/:id", (req, res) => {
   res.render("urls_show", templateVars);
 });
 
+//Edit data by id
+app.post("/urls/:id", (req, res) => {
+  urlDatabase[req.params.id] = req.body["newUrl"];
+  res.redirect("/urls");
+});
+
 //Display database
 app.get("/urls.json", (req, res) => {
   res.json(urlDatabase);
