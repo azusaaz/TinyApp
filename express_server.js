@@ -168,7 +168,7 @@ function whoHasThisEmail(newEmail) {
 app.post("/login", (req, res) => {
    let user = whoHasThisEmail(req.body.email);
   if(user){
-    if(users[user].email === req.body.email){
+    if(users[user].password === req.body.password){
       res.cookie("user_id", user);
 
     }else{
