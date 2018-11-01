@@ -166,7 +166,7 @@ app.post("/login", (req, res) => {
   if(user){
     if(users[user].email === req.body.email){
       res.cookie("user_id", user);
-      
+
     }else{
       res.status(403);
       res.send("password doesn't match, please try again");
@@ -183,7 +183,7 @@ app.post("/login", (req, res) => {
 //logout and clear cookie
 app.post("/logout", (req, res) => {
 
-  res.clearCookie("username");
+  res.clearCookie("user_id");
 
   res.redirect("/urls");
 });
