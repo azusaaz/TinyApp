@@ -77,6 +77,16 @@ app.post("/urls/:id", (req, res) => {
   res.redirect("/urls");
 });
 
+//Display register page
+app.get("/register", (req, res) => {
+
+  let templateVars = {
+    username: "",
+  };
+
+  res.render("urls_login", templateVars);
+});
+
 //login and store username in a cookie
 app.post("/login", (req, res) => {
 
