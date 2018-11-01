@@ -148,10 +148,34 @@ app.get("/login", (req, res) => {
   res.render("login");
 });
 
+//validate email existence
+function whoHasThisEmail(newEmail) {
+  var result = false;
+
+  for (user in users) {
+    if (users[user].email === newEmail) {
+      result = user;
+    }
+  }
+  return result;
+}
+
 //login and store username in a cookie
 app.post("/login", (req, res) => {
-
-  res.cookie("username", req.body.username);
+   let user = whoHasThisEmail(req.body.email);
+  if(user){
+    if(users[user].email === req.body.email){
+      res.cookie("user_id", user);
+      
+    }else{
+      res.status(403);
+      res.send("password doesn't match, please try again");
+    }
+  }
+  else {
+    res.status(403);
+    res.send("cannot find user");
+  }
 
   res.redirect("/urls");
 });
