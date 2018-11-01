@@ -105,6 +105,21 @@ app.get("/register", (req, res) => {
   res.render("urls_login", templateVars);
 });
 
+//Register user info into data base object
+app.post("/register", (req, res) => {
+  let newUserId = generateRandomString();
+
+  users[newUserId] = {
+    id: newUserId,
+    email: req.body.email,
+    password: req.body.password,
+  };
+
+  res.cookie("user_id", newUserId);
+
+  res.redirect("/urls");
+});
+
 //login and store username in a cookie
 app.post("/login", (req, res) => {
 
