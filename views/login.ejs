@@ -2,9 +2,9 @@
 <head></head>
 <body style="font-size:20px; padding:50px;">
 
-  <%if(username){%>
+  <%if(users.user_id){%>
   <h2>
-    <%= username %>
+    <%= users.user_id %>
   </h2>
   <form method="POST" action="/logout">
     <input type="submit" value="/logout">

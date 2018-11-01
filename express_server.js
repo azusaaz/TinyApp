@@ -145,7 +145,11 @@ app.post("/register", (req, res) => {
 //Display login page
 app.get("/login", (req, res) => {
 
-  res.render("login");
+  let templateVars = {
+    users,
+  };
+ 
+  res.render("login", templateVars);
 });
 
 //validate email existence
