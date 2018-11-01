@@ -105,19 +105,41 @@ app.get("/register", (req, res) => {
   res.render("urls_login", templateVars);
 });
 
+//validate email existence
+function isExistEmail(newEmail) {
+  var result = false;
+
+  for (user in users) {
+    if (users[user].email === newEmail) {
+      result = true;
+    }
+  }
+  return result;
+}
+
 //Register user info into data base object
 app.post("/register", (req, res) => {
   let newUserId = generateRandomString();
 
-  users[newUserId] = {
-    id: newUserId,
-    email: req.body.email,
-    password: req.body.password,
-  };
+  if (!req.body.email || !req.body.password) {
+    res.status(400);
+    res.send("please send your email and password!");
 
-  res.cookie("user_id", newUserId);
+  } else if (isExistEmail(req.body.email)) {
+    res.status(400);
+    res.send("email already exist!");
 
-  res.redirect("/urls");
+  } else {
+    users[newUserId] = {
+      id: newUserId,
+      email: req.body.email,
+      password: req.body.password,
+    };
+
+    res.cookie("user_id", newUserId);
+
+    res.redirect("/urls");
+  }
 });
 
 //login and store username in a cookie
