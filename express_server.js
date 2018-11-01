@@ -102,7 +102,7 @@ app.get("/register", (req, res) => {
    
   };
 
-  res.render("urls_login", templateVars);
+  res.render("register", templateVars);
 });
 
 //validate email existence
@@ -140,6 +140,12 @@ app.post("/register", (req, res) => {
 
     res.redirect("/urls");
   }
+});
+
+//Display login page
+app.get("/login", (req, res) => {
+
+  res.render("login");
 });
 
 //login and store username in a cookie
