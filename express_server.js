@@ -26,17 +26,17 @@ const users = {
   "userRandomID": {
     id: "userRandomID",
     email: "user@example.com",
-    password: "purple-monkey-dinosaur"
+    password: bcrypt.hashSync("purple-monkey-dinosaur", 10)
   },
   "user2RandomID": {
     id: "user2RandomID",
     email: "user2@example.com",
-    password: "dishwasher-funk"
+    password: bcrypt.hashSync("dishwasher-funk", 10)
   },
   "user3RandomID": {
     id: "user3RandomID",
     email: "user3@example.com",
-    password: "garden-twitter"
+    password: bcrypt.hashSync("garden-twitter", 10)
   }
 }
 
@@ -63,7 +63,6 @@ app.get("/urls", (req, res) => {
     user: users[req.cookies["user_id"]],
     urls: urlsForUser(req.cookies["user_id"]),
   };
-
   res.render("urls_index", templateVars);
 });
 
@@ -188,10 +187,14 @@ function whoHasThisEmail(newEmail) {
 
 //login and store username in a cookie
 app.post("/login", (req, res) => {
-  let user = whoHasThisEmail(req.body.email);
-  if (user) {
-    if (users[user].password === req.body.password) {
-      res.cookie("user_id", user);
+      let user = whoHasThisEmail(req.body.email);
+
+      //compare bcrypted password
+      let isRightPassword = bcrypt.compareSync(req.body.password, users[user].password);
+
+      if (user) {
+        if (isRightPassword) {
+          res.cookie("user_id", user);
 
     } else {
       res.status(403);
