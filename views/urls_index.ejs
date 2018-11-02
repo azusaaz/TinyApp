@@ -11,7 +11,7 @@
   <%if(user){%>
 
   <ul>
-    <% 
+    <% if(urls == {}){
  for(url in urls){ %>
     <li><a href="<%= urls[url].url %>">
       <%= url %>
@@ -27,8 +27,10 @@
         <input  type="submit" value="delete" style="cursor: pointer">
       </form>
     </li>
-    <% }; %>
-
+    <% }; 
+  }else{%>
+    <a>You don't have any shorten url. Let's create new one!
+    <%}%>
   </ul>
   <a href="/urls/new">Create a New Short Link</a>
   <%}%>
