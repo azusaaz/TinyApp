@@ -189,23 +189,24 @@ function whoHasThisEmail(newEmail) {
 app.post("/login", (req, res) => {
       let user = whoHasThisEmail(req.body.email);
 
-      //compare bcrypted password
-      let isRightPassword = bcrypt.compareSync(req.body.password, users[user].password);
-
       if (user) {
+
+        //compare bcrypted password
+        let isRightPassword = bcrypt.compareSync(req.body.password, users[user].password);
+
         if (isRightPassword) {
           res.cookie("user_id", user);
+          res.redirect("/urls");
 
-    } else {
-      res.status(403);
-      res.send("password doesn't match, please try again");
-    }
-  } else {
-    res.status(403);
-    res.send("cannot find user");
-  }
-
-  res.redirect("/urls");
+        } else {
+          res.status(403);
+          res.send("password doesn't match, please try again");
+        }
+        
+      } else {
+        res.status(403);
+        res.send("cannot find user");
+      }
 });
 
 //logout and clear cookie
