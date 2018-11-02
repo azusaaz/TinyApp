@@ -96,9 +96,8 @@ app.get("/urls/:id", (req, res) => {
 
 //Edit data by id
 app.post("/urls/:id", (req, res) => {
-  console.log(urlDatabase[req.params.id].user_id);
-  if(urlDatabase[req.params.id].user_id === users[req.cookies["user_id"]]){
-    urlDatabase[req.params.id] = req.body["newUrl"];
+  if(urlDatabase[req.params.id].user_id === users[req.cookies["user_id"]].id){
+    urlDatabase[req.params.id].url = req.body["newUrl"];
   }
  
   res.redirect("/urls");
@@ -208,7 +207,10 @@ app.get("/urls.json", (req, res) => {
 //Delete data by id
 app.post("/urls/:id/delete", (req, res) => {
 
-  delete urlDatabase[req.params.id];
+  if(urlDatabase[req.params.id].user_id === users[req.cookies["user_id"]].id){
+    console.log("vvvv");
+    delete urlDatabase[req.params.id];
+  }
 
   res.redirect("/urls");
 });
