@@ -54,7 +54,13 @@ app.set("view engine", "ejs");
 
 //Default
 app.get("/", (req, res) => {
-  res.redirect("/urls");
+  
+  if (req.session["user_id"]) {
+    res.redirect("/urls");
+  }else{
+    res.redirect("/login");
+  }
+
 });
 
 function urlsForUser(id) {
