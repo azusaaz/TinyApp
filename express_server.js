@@ -166,6 +166,10 @@ app.post("/register", (req, res) => {
 //Display login page
 app.get("/login", (req, res) => {
 
+  if (req.cookies["user_id"]) {
+    res.redirect("/urls");
+  }
+
   let templateVars = {
     user: users[req.cookies["user_id"]],
   };
@@ -202,7 +206,7 @@ app.post("/login", (req, res) => {
           res.status(403);
           res.send("password doesn't match, please try again");
         }
-        
+
       } else {
         res.status(403);
         res.send("cannot find user");
