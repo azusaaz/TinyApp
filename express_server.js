@@ -1,9 +1,9 @@
 var express = require("express");
 var app = express();
 var PORT = 8080; // default port 8080
-var addressPrefix = `http://localhost:${PORT}/`
+var addressPrefix = `http://localhost:${PORT}/`;
 const bcrypt = require('bcrypt');
-var cookieSession = require('cookie-session')
+var cookieSession = require('cookie-session');
 
 const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({
@@ -15,17 +15,17 @@ app.use(cookieSession({
   keys: ['key1', 'key2'],
 
   // Cookie Options
-  maxAge: 24 * 60 * 60 * 1000 // 24 hours
+  maxAge: 24 * 60 * 60 * 1000, // 24 hours
 }))
 
 var urlDatabase = {
   "b2xVn2": {
     url: "http://www.lighthouselabs.ca",
-    user_id: "userRandomID"
+    user_id: "userRandomID",
   },
   "9sm5xK": {
     url: "http://www.google.com",
-    user_id: "user2RandomID"
+    user_id: "user2RandomID",
   },
 };
 
@@ -34,20 +34,20 @@ const users = {
     id: "userRandomID",
     email: "user@example.com",
     // *** Actual password: "purple-monkey-dinosaur"
-    password: "$2b$10$NrsPyX1jibhvbKRiXEHV3.eWOc05rvcBzIQ.XFym5uMPDOkTt.PIq"
+    password: "$2b$10$NrsPyX1jibhvbKRiXEHV3.eWOc05rvcBzIQ.XFym5uMPDOkTt.PIq",
   },
   "user2RandomID": {
     id: "user2RandomID",
     email: "user2@example.com",
     // *** Actual password: "dishwasher-funk"
-    password: "$2b$10$LXwPZiQW0Z6ExMgJ6pMRwuqytUTsAZtZa3J1fkkgp68oyFhe3nT16"
+    password: "$2b$10$LXwPZiQW0Z6ExMgJ6pMRwuqytUTsAZtZa3J1fkkgp68oyFhe3nT16",
   },
   "user3RandomID": {
     id: "user3RandomID",
     email: "user3@example.com",
     // *** Actual password: "garden-twitter"
-    password: "$2b$10$bSzEkfb8ro/yf/IVvPb4weo7a6vHKTBRipDrVOUQKxXErQVvOpu7."
-  }
+    password: "$2b$10$bSzEkfb8ro/yf/IVvPb4weo7a6vHKTBRipDrVOUQKxXErQVvOpu7.",
+  },
 }
 
 app.set("view engine", "ejs");
@@ -57,7 +57,7 @@ app.get("/", (req, res) => {
 
   if (req.session["user_id"]) {
     res.redirect("/urls");
-  }else{
+  } else {
     res.redirect("/login");
   }
 
@@ -81,10 +81,10 @@ app.get("/urls", (req, res) => {
   res.render("urls_index", templateVars);
 });
 
-//Show a form
+//Display form for new short url
 app.get("/urls/new", (req, res) => {
   if (!req.session["user_id"]) {
-    res.redirect("/login")
+    res.redirect("/login");
   }
 
   let templateVars = {
@@ -99,7 +99,7 @@ app.post("/urls", (req, res) => {
   let newShortURL = generateRandomString();
   urlDatabase[newShortURL] = {
     "url": req.body.longURL,
-    "user_id": req.session["user_id"]
+    "user_id": req.session["user_id"],
   };
   res.redirect(`/urls/${newShortURL}`);
 });
@@ -109,10 +109,10 @@ app.get("/u/:shortURL", (req, res) => {
   if (!req.session["user_id"]) {
     res.status(403);
     res.send("Please log-in first!");
-  }else{
+  } else {
 
-  let longURL = urlDatabase[req.params.shortURL].url;
-  res.redirect(longURL);
+    let longURL = urlDatabase[req.params.shortURL].url;
+    res.redirect(longURL);
   }
 });
 
@@ -127,7 +127,7 @@ app.get("/urls/:id", (req, res) => {
       addressPrefix,
       user: users[req.session["user_id"]],
       shortURL: req.params.id,
-      longURL: urlDatabase[req.params.id].url
+      longURL: urlDatabase[req.params.id].url,
     };
     res.render("urls_show", templateVars);
   }
@@ -142,8 +142,12 @@ app.post("/urls/:id", (req, res) => {
   res.redirect("/urls");
 });
 
-//Display register page
+//Display user register page
 app.get("/register", (req, res) => {
+
+  if (req.session["user_id"]) {
+    res.redirect("/urls");
+  }
 
   let templateVars = {
     user: users[req.session["user_id"]],
@@ -255,7 +259,7 @@ app.get("/urls.json", (req, res) => {
 
 //Delete data by id
 app.post("/urls/:id/delete", (req, res) => {
- 
+
   if (!req.session["user_id"]) {
     res.status(403);
     res.send("Please log-in first!");
