@@ -57,12 +57,12 @@ app.get("/", (req, res) => {
   res.redirect("/urls");
 });
 
-function urlsForUser(id){
+function urlsForUser(id) {
   let urls = {};
-  for(url in urlDatabase){
-     if(urlDatabase[url].user_id === id){
-        urls[url] = urlDatabase[url];
-     }
+  for (url in urlDatabase) {
+    if (urlDatabase[url].user_id === id) {
+      urls[url] = urlDatabase[url];
+    }
   }
   return urls;
 }
@@ -77,7 +77,7 @@ app.get("/urls", (req, res) => {
 
 //Show a form
 app.get("/urls/new", (req, res) => {
-  if(!req.session["user_id"]){
+  if (!req.session["user_id"]) {
     res.redirect("/urls");
   }
   let templateVars = {
@@ -117,10 +117,10 @@ app.get("/urls/:id", (req, res) => {
 
 //Edit data by id
 app.post("/urls/:id", (req, res) => {
-  if(urlDatabase[req.params.id].user_id === users[req.session["user_id"]].id){
+  if (urlDatabase[req.params.id].user_id === users[req.session["user_id"]].id) {
     urlDatabase[req.params.id].url = req.body["newUrl"];
   }
- 
+
   res.redirect("/urls");
 });
 
@@ -200,26 +200,26 @@ function whoHasThisEmail(newEmail) {
 
 //login and store username in a 
 app.post("/login", (req, res) => {
-      let user = whoHasThisEmail(req.body.email);
+  let user = whoHasThisEmail(req.body.email);
 
-      if (user) {
+  if (user) {
 
-        //compare bcrypted password
-        let isRightPassword = bcrypt.compareSync(req.body.password, users[user].password);
+    //compare bcrypted password
+    let isRightPassword = bcrypt.compareSync(req.body.password, users[user].password);
 
-        if (isRightPassword) {
-          req.session.user_id = user;
-          res.redirect("/urls");
+    if (isRightPassword) {
+      req.session.user_id = user;
+      res.redirect("/urls");
 
-        } else {
-          res.status(403);
-          res.send("password doesn't match, please try again");
-        }
+    } else {
+      res.status(403);
+      res.send("password doesn't match, please try again");
+    }
 
-      } else {
-        res.status(403);
-        res.send("cannot find user");
-      }
+  } else {
+    res.status(403);
+    res.send("cannot find user");
+  }
 });
 
 //logout and clear cookie
@@ -238,8 +238,8 @@ app.get("/urls.json", (req, res) => {
 //Delete data by id
 app.post("/urls/:id/delete", (req, res) => {
 
-  if(urlDatabase[req.params.id].user_id === users[req.session["user_id"]].id){
-    console.log("vvvv");
+  if (urlDatabase[req.params.id].user_id === users[req.session["user_id"]].id) {
+
     delete urlDatabase[req.params.id];
   }
 
