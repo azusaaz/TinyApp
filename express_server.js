@@ -37,10 +37,7 @@ app.set("view engine", "ejs");
 
 //Default
 app.get("/", (req, res) => {
-  let templateVars = {
-    greeting: 'Hello World!'
-  };
-  res.render("hello_world", templateVars);
+  res.redirect("/urls");
 });
 
 //Display urls with the template
