@@ -109,10 +109,11 @@ app.get("/u/:shortURL", (req, res) => {
   if (!req.session["user_id"]) {
     res.status(403);
     res.send("Please log-in first!");
-  }
+  }else{
 
   let longURL = urlDatabase[req.params.shortURL].url;
   res.redirect(longURL);
+  }
 });
 
 //Display one url with the template
@@ -120,15 +121,16 @@ app.get("/urls/:id", (req, res) => {
   if (!req.session["user_id"]) {
     res.status(403);
     res.send("Please log-in first!");
-  }
+  } else {
 
-  let templateVars = {
-    addressPrefix,
-    user: users[req.session["user_id"]],
-    shortURL: req.params.id,
-    longURL: urlDatabase[req.params.id].url
-  };
-  res.render("urls_show", templateVars);
+    let templateVars = {
+      addressPrefix,
+      user: users[req.session["user_id"]],
+      shortURL: req.params.id,
+      longURL: urlDatabase[req.params.id].url
+    };
+    res.render("urls_show", templateVars);
+  }
 });
 
 //Edit data by id
@@ -253,13 +255,19 @@ app.get("/urls.json", (req, res) => {
 
 //Delete data by id
 app.post("/urls/:id/delete", (req, res) => {
+ 
+  if (!req.session["user_id"]) {
+    res.status(403);
+    res.send("Please log-in first!");
+  } else {
 
-  if (urlDatabase[req.params.id].user_id === users[req.session["user_id"]].id) {
+    if (urlDatabase[req.params.id].user_id === users[req.session["user_id"]].id) {
 
-    delete urlDatabase[req.params.id];
+      delete urlDatabase[req.params.id];
+    }
+
+    res.redirect("/urls");
   }
-
-  res.redirect("/urls");
 });
 
 //Starter message
