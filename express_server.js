@@ -68,11 +68,14 @@ app.get("/urls/new", (req, res) => {
   res.render("urls_new", templateVars);
 });
 
-//Receive the form submission
+//Register new URL info into urlDatabase
 app.post("/urls", (req, res) => {
 
   let newShortURL = generateRandomString();
-  urlDatabase[newShortURL] = req.body.longURL;
+  urlDatabase[newShortURL] = {
+    "url": req.body.longURL,
+    "user_id": req.cookies["user_id"]
+  };
   res.redirect(`/urls/${newShortURL}`);
 });
 
