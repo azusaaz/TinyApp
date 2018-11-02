@@ -11,8 +11,14 @@ app.use(bodyParser.urlencoded({
 app.use(cookieParser())
 
 var urlDatabase = {
-  "b2xVn2": "http://www.lighthouselabs.ca",
-  "9sm5xK": "http://www.google.com"
+  "b2xVn2": {
+    url: "http://www.lighthouselabs.ca",
+    user_id: "userRandomID"
+  },
+  "9sm5xK": {
+    url: "http://www.google.com",
+    user_id: "user2RandomID"
+  },
 };
 
 const users = {
@@ -53,6 +59,9 @@ app.get("/urls", (req, res) => {
 
 //Show a form
 app.get("/urls/new", (req, res) => {
+  if(!req.cookies["user_id"]){
+    res.redirect("/urls");
+  }
   let templateVars = {
     user: users[req.cookies["user_id"]],
   };
