@@ -46,12 +46,22 @@ app.get("/", (req, res) => {
   res.redirect("/urls");
 });
 
+function filterUrl(whoes){
+  let urls = {};
+  for(url in urlDatabase){
+     if(urlDatabase[url].user_id === whoes){
+        urls[url] = urlDatabase[url];
+     }
+  }
+  return urls;
+}
 //Display urls with the template
 app.get("/urls", (req, res) => {
 
+  console.log(filterUrl(req.cookies["user_id"]));
   let templateVars = {
     user: users[req.cookies["user_id"]],
-    urls: urlDatabase
+    urls: filterUrl(req.cookies["user_id"]),
   };
 
   res.render("urls_index", templateVars);
