@@ -54,7 +54,7 @@ app.set("view engine", "ejs");
 
 //Default
 app.get("/", (req, res) => {
-  
+
   if (req.session["user_id"]) {
     res.redirect("/urls");
   }else{
@@ -84,8 +84,9 @@ app.get("/urls", (req, res) => {
 //Show a form
 app.get("/urls/new", (req, res) => {
   if (!req.session["user_id"]) {
-    res.redirect("/urls");
+    res.redirect("/login")
   }
+
   let templateVars = {
     user: users[req.session["user_id"]],
   };
@@ -105,12 +106,21 @@ app.post("/urls", (req, res) => {
 
 //Redirect to a longURL page from the passed shortURL
 app.get("/u/:shortURL", (req, res) => {
+  if (!req.session["user_id"]) {
+    res.status(403);
+    res.send("Please log-in first!");
+  }
+
   let longURL = urlDatabase[req.params.shortURL].url;
   res.redirect(longURL);
 });
 
 //Display one url with the template
 app.get("/urls/:id", (req, res) => {
+  if (!req.session["user_id"]) {
+    res.status(403);
+    res.send("Please log-in first!");
+  }
 
   let templateVars = {
     addressPrefix,
