@@ -15,20 +15,20 @@ var urlDatabase = {
   "9sm5xK": "http://www.google.com"
 };
 
-const users = { 
+const users = {
   "userRandomID": {
-    id: "userRandomID", 
-    email: "user@example.com", 
+    id: "userRandomID",
+    email: "user@example.com",
     password: "purple-monkey-dinosaur"
   },
- "user2RandomID": {
-    id: "user2RandomID", 
-    email: "user2@example.com", 
+  "user2RandomID": {
+    id: "user2RandomID",
+    email: "user2@example.com",
     password: "dishwasher-funk"
   },
   "user3RandomID": {
-    id: "user3RandomID", 
-    email: "user3@example.com", 
+    id: "user3RandomID",
+    email: "user3@example.com",
     password: "garden-twitter"
   }
 }
@@ -144,7 +144,7 @@ app.get("/login", (req, res) => {
   let templateVars = {
     user: users[req.cookies["user_id"]],
   };
- 
+
   res.render("login", templateVars);
 });
 
@@ -162,17 +162,16 @@ function whoHasThisEmail(newEmail) {
 
 //login and store username in a cookie
 app.post("/login", (req, res) => {
-   let user = whoHasThisEmail(req.body.email);
-  if(user){
-    if(users[user].password === req.body.password){
+  let user = whoHasThisEmail(req.body.email);
+  if (user) {
+    if (users[user].password === req.body.password) {
       res.cookie("user_id", user);
 
-    }else{
+    } else {
       res.status(403);
       res.send("password doesn't match, please try again");
     }
-  }
-  else {
+  } else {
     res.status(403);
     res.send("cannot find user");
   }
