@@ -26,17 +26,20 @@ const users = {
   "userRandomID": {
     id: "userRandomID",
     email: "user@example.com",
-    password: bcrypt.hashSync("purple-monkey-dinosaur", 10)
+    // *** Actual password: "purple-monkey-dinosaur"
+    password: "$2b$10$NrsPyX1jibhvbKRiXEHV3.eWOc05rvcBzIQ.XFym5uMPDOkTt.PIq"
   },
   "user2RandomID": {
     id: "user2RandomID",
     email: "user2@example.com",
-    password: bcrypt.hashSync("dishwasher-funk", 10)
+    // *** Actual password: "dishwasher-funk"
+    password: "$2b$10$LXwPZiQW0Z6ExMgJ6pMRwuqytUTsAZtZa3J1fkkgp68oyFhe3nT16"
   },
   "user3RandomID": {
     id: "user3RandomID",
     email: "user3@example.com",
-    password: bcrypt.hashSync("garden-twitter", 10)
+    // *** Actual password: "garden-twitter"
+    password: "$2b$10$bSzEkfb8ro/yf/IVvPb4weo7a6vHKTBRipDrVOUQKxXErQVvOpu7."
   }
 }
 
@@ -58,7 +61,6 @@ function urlsForUser(id){
 }
 //Display urls with the template
 app.get("/urls", (req, res) => {
-
   let templateVars = {
     user: users[req.cookies["user_id"]],
     urls: urlsForUser(req.cookies["user_id"]),
