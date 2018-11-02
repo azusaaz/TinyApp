@@ -1,9 +1,13 @@
-<h1>TinyApp</h1>
+<div>
+    <h1>TinyApp</h1>
 
 <%if(user){%>
 <h2>
   <%= user.id %>
 </h2>
+<h3>
+  <%= user.email %>
+</h3>
 <form method="POST" action="/logout">
   <input type="submit" value="/logout">
 </form>
@@ -13,3 +17,4 @@
 <a href="../login">login</a>
 
 <%}%>
+</div>
