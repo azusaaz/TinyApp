@@ -49,7 +49,7 @@ app.get("/", (req, res) => {
 function urlsForUser(id){
   let urls = {};
   for(url in urlDatabase){
-     if(urlDatabase[url].user_id === whoes){
+     if(urlDatabase[url].user_id === id){
         urls[url] = urlDatabase[url];
      }
   }
