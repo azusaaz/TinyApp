@@ -3,6 +3,7 @@ var app = express();
 var PORT = 8080; // default port 8080
 var addressPrefix = `http://localhost:${PORT}/`
 var cookieParser = require('cookie-parser')
+const bcrypt = require('bcrypt');
 
 const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({
@@ -150,10 +151,11 @@ app.post("/register", (req, res) => {
     res.send("email already exist!");
 
   } else {
+    const hashedPassword = bcrypt.hashSync(req.body.password, 10);
     users[newUserId] = {
       id: newUserId,
       email: req.body.email,
-      password: req.body.password,
+      password: hashedPassword,
     };
 
     res.cookie("user_id", newUserId);
