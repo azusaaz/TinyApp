@@ -11,7 +11,7 @@
   <%if(user){%>
 
   <ul>
-    <% if(urls == {}){
+    <% if(Object.keys(urls).length){
  for(url in urls){ %>
     <li><a href="<%= urls[url].url %>">
       <%= url %>
