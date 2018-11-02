@@ -1,4 +1,15 @@
 <h1>TinyApp</h1>
 
+<%if(user){%>
+<h2>
+  <%= user.id %>
+</h2>
+<form method="POST" action="/logout">
+  <input type="submit" value="/logout">
+</form>
+<%}else{%>
+
 <a href="../register">register</a>
 <a href="../login">login</a>
+
+<%}%>

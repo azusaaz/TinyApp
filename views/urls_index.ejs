@@ -7,6 +7,9 @@
 
 <body>
   <% include ./partials/_header.ejs %>
+
+  <%if(user){%>
+
   <ul>
     <% 
  for(url in urls){ %>
@@ -27,6 +30,8 @@
     <% }; %>
 
   </ul>
+
+  <%}%>
 </body>
 
 </html>
