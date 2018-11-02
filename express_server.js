@@ -89,14 +89,18 @@ app.get("/urls/:id", (req, res) => {
     addressPrefix,
     user: users[req.cookies["user_id"]],
     shortURL: req.params.id,
-    longURL: urlDatabase[req.params.id]
+    longURL: urlDatabase[req.params.id].url
   };
   res.render("urls_show", templateVars);
 });
 
 //Edit data by id
 app.post("/urls/:id", (req, res) => {
-  urlDatabase[req.params.id] = req.body["newUrl"];
+  console.log(urlDatabase[req.params.id].user_id);
+  if(urlDatabase[req.params.id].user_id === users[req.cookies["user_id"]]){
+    urlDatabase[req.params.id] = req.body["newUrl"];
+  }
+ 
   res.redirect("/urls");
 });
 

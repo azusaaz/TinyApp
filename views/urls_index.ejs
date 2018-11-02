@@ -13,12 +13,12 @@
   <ul>
     <% 
  for(url in urls){ %>
-    <li><a href="<%= urls[url] %>">
+    <li><a href="<%= urls[url].url %>">
       <%= url %>
         </a>
         &nbsp;
-        <a href="<%= urls[url] %>">
-          <%= urls[url] %>
+        <a href="<%= urls[url].url %>">
+          <%= urls[url].url %>
         </a>
         &nbsp;
         <a href="/urls/<%= url %>">Edit</a>
