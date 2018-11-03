@@ -6,7 +6,7 @@
 
   <div class="content">
     <h2>Generated URL</h2>
-    
+
     <ul>
       <li class="list">ShortURL:&nbsp;&nbsp;<a href="<%=addressPrefix%><%= shortURL %>">
           <%= shortURL %>
@@ -15,11 +15,11 @@
 
       <form id="editForm" method="POST" action="/urls/<%= shortURL %>">
         <input name="newUrl" type="text" placeholder="http://" required>
-        <button type="submit">update linked url</button>
+        <button type="submit">update original url</button>
       </form>
     </ul>
 
-    <a href="/urls">Back to list</a>
+    <a href="/urls">Back to list</a> &nbsp; <a href="/urls/new">Create Another Short Link</a>
   </div>
 
 </body>
