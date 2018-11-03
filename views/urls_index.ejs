@@ -1,39 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <title>TinyApp</title>
-</head>
-
-<body>
-  <% include ./partials/_header.ejs %>
+<% include ./partials/_header.ejs %>
 
   <%if(user){%>
-
   <ul>
+
     <% if(Object.keys(urls).length){
  for(url in urls){ %>
     <li><a href="<%= urls[url].url %>">
-      <%= url %>
-        </a>
-        &nbsp;
-        <a href="<%= urls[url].url %>">
-          <%= urls[url].url %>
-        </a>
-        &nbsp;
-        <a href="/urls/<%= url %>">Edit</a>
-        &nbsp;
+        <%= url %>
+      </a>
+      &nbsp;
+      <a href="<%= urls[url].url %>">
+        <%= urls[url].url %>
+      </a>
+      &nbsp;
+      <a href="/urls/<%= url %>">Edit</a>
+      &nbsp;
       <form style="display: inline-block" method="POST" action="/urls/<%= url %>/delete">
-        <input  type="submit" value="delete" style="cursor: pointer">
+        <input type="submit" value="delete">
       </form>
     </li>
     <% }; 
+
   }else{%>
+
     <a>You don't have any shorten url. Let's create new one!
-    <%}%>
+      <%}%>
   </ul>
   <a href="/urls/new">Create a New Short Link</a>
   <%}%>
+
 </body>
 
 </html>

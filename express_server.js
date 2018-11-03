@@ -4,8 +4,11 @@ var PORT = 8080; // default port 8080
 var addressPrefix = `http://localhost:${PORT}/`;
 const bcrypt = require('bcrypt');
 var cookieSession = require('cookie-session');
-
 const bodyParser = require("body-parser");
+
+//for css use
+app.use('/public',express.static(process.cwd() + '/public'));
+
 app.use(bodyParser.urlencoded({
   extended: true
 }));
