@@ -131,7 +131,11 @@ app.get("/urls/:id", (req, res) => {
   if (!req.session["user_id"]) {
     res.status(403);
     res.send("Please log-in first!");
-  } else {
+  } else if(!urlDatabase[req.params.id]){
+    res.status(403);
+    res.send("You don't have this short url.");
+  }
+  else{
 
     let templateVars = {
       addressPrefix: "http://localhost:8080/u/",
