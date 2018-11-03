@@ -119,7 +119,10 @@ app.get("/u/:shortURL", (req, res) => {
   if (!req.session["user_id"]) {
     res.status(403);
     res.send("Please log-in first!");
-  } else {
+  } else if(!urlDatabase[req.params.shortURL]){
+    res.status(403);
+    res.send("This short url doesn't exist.");
+  }else{
 
     let longURL = urlDatabase[req.params.shortURL].url;
     res.redirect(longURL);
@@ -149,6 +152,7 @@ app.get("/urls/:id", (req, res) => {
 
 //Edit data by id
 app.post("/urls/:id", (req, res) => {
+  
   if (urlDatabase[req.params.id].user_id === users[req.session["user_id"]].id) {
     urlDatabase[req.params.id].url = req.body["newUrl"];
   }
