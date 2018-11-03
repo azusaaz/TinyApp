@@ -202,7 +202,7 @@ app.get("/login", (req, res) => {
   }
 
   let templateVars = {
-    user: users[req.session["user_id"]],
+    user: "",
   };
 
   res.render("login", templateVars);
