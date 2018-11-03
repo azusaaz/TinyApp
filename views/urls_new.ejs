@@ -3,12 +3,17 @@
 
 <!-- _header has open body tag -->
 <% include partials/_header %>
+ 
+  <div class="content">
+      <h2>Create New Short URL</h2>
+      
+      <form action="/urls" method="POST">
+        <label for="longURL">Enter a URL:</label>
+        <input id="longURL" type="text" name="longURL" placeholder="http://" required>
+        <button type="submit">submit</button>
+      </form>
+      <a href="/urls">Back to list</a>
+  </div>
 
-    <form action="/urls" method="POST" style="margin:150px;">
-      <label for="longURL">Enter a URL:</label>
-      <input id="longURL" type="text" name="longURL" placeholder="http://">
-      <input type="submit" value="Submit">
-    </form>
-  </body>
-
+</body>
 </html>

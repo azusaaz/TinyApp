@@ -4,13 +4,19 @@
 <!-- _header has open body tag -->
 <% include partials/_header %>
 
+  <div class="content">
+    <form class="submission-form" action="/register" method="POST">
+      <h3>register</h3>
+      
+      &nbsp;
+      <h4>Enter email and password</h4>
+      &nbsp;
+      <input type="email" name="email" placeholder="email@example.com">
+      <input type="password" name="password" placeholder="password">
+      <button type="submit">register</button>
+    </form>
+  </div>
 
-  <form action="/register" method="POST" style="margin:150px;">
-    <a>Enter a email and password:</a>
-    <input type="email" name="email" placeholder="email@example.com">
-    <input type="password" name="password" placeholder="password">
-    <input type="submit" value="register">
-  </form>
 </body>
 
 </html>

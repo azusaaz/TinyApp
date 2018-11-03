@@ -1,29 +1,45 @@
 <head>
-    <link rel="stylesheet" type="text/css" href="/public/reset.css">
-    <link rel="stylesheet" type="text/css" href="/public/style.css">
-    <title>TinyApp</title>
-</head>
-  <body>
+  <link rel="icon" type="image/x-icon" href="public/favicon.ico">
+  <link rel="stylesheet" type="text/css" href="/public/reset.css">
+  <link rel="stylesheet" type="text/css" href="/public/style.css">
 
-<div>
+  <!-- font -->
+  <link href="https://fonts.googleapis.com/css?family=Audiowide" rel="stylesheet">
+
+  <title>TinyApp</title>
+</head>
+
+<body>
+
+  <header>
     <h1>TinyApp</h1>
 
-<%if(user){%>
-<h2>
-  <%= user.id %>
-</h2>
-<h3>
-  <%= user.email %>
-</h3>
-<form method="POST" action="/logout">
-  <input type="submit" value="/logout">
-</form>
-<%}else{%>
+    <%if(user){%>
 
-<a href="../register">register</a>
-<a href="../login">login</a>
+    <div id="top-right">
+      <div id="userInfo">
+        <h5>logged in as:</h5>
+        <h4>
+          <%= user.id %>
+        </h4>
+        <h4>
+          <%= user.email %>
+        </h4>
+        <form method="POST" action="/logout">
+          <input class="button" type="submit" value="log out">
+        </form>
+      </div>
 
-<%}%>
-</div>
+    </div>
 
-<!-- vies have closed body tag -->
+    <%}else{%>
+
+    <div id="siteLink">
+      <a href="../register">register</a>
+      <a href="../login">log in</a>
+    </div>
+
+    <%}%>
+  </header>
+
+  <!-- vies have closed body tag -->

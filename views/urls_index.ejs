@@ -2,37 +2,51 @@
 <html lang="en">
 
 <!-- _header has open body tag -->
-<% include ./partials/_header.ejs %> 
+<% include ./partials/_header.ejs %>
 
-  <%if(user){%>
-  <ul>
+  <div class="content">
 
-    <% if(Object.keys(urls).length){
- for(url in urls){ %>
-    <li><a href="<%= urls[url].url %>">
-        <%= url %>
-      </a>
-      &nbsp;
-      <a href="<%= urls[url].url %>">
-        <%= urls[url].url %>
-      </a>
-      &nbsp;
-      <a href="/urls/<%= url %>">Edit</a>
-      &nbsp;
-      <form style="display: inline-block" method="POST" action="/urls/<%= url %>/delete">
-        <input type="submit" value="delete">
-      </form>
-    </li>
-    <% }; 
+    <%if(user){%>
 
-  }else{%>
+    <h2>Your Short URLs</h2>
+    
+    <ul>
 
-    <a>You don't have any shorten url. Let's create new one!
+      <% if(Object.keys(urls).length){
+
+    for(url in urls){ %>
+
+      <li class="list"><a href="<%= urls[url].url %>">
+          <%=addressPrefix%><%= url %>
+        </a>
+        <a href="<%= urls[url].url %>">
+          ( <%= urls[url].url %> )
+        </a>
+        &nbsp; &nbsp; &nbsp;
+
+        <form method="GET" action="/urls/<%= url %>">
+          <button type="submit">edit url</button>
+        </form>
+
+        <form method="POST" action="/urls/<%= url %>/delete">
+          <button type="submit">delete</button>
+        </form>
+      </li>
+      <% }; 
+
+      }else{%>
+
+      <p>You don't have any shorten url. Let's create new one!</p>
+
       <%}%>
-  </ul>
-  <a href="/urls/new">Create a New Short Link</a>
-  <%}%>
+
+    </ul>
+
+    <br>
+    <a href="/urls/new">Create a New Short Link</a>
+    <%}%>
+
+  </div>
 
 </body>
-
 </html>

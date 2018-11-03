@@ -3,23 +3,30 @@
 
 <% include partials/_header %>
 
-  <%if(user){%>
+  <div class="content">
 
-  <form method="POST" action="/logout">
-    <input type="submit" value="/logout">
-  </form>
+    <%if(user){%>
 
-  <%}else{%>
+    <form method="POST" action="/logout">
+      <input id="logout" type="submit" value="/logout">
+    </form>
 
-  <form method="POST" action="/login" style="margin:150px;">
-    <a>Enter a email and password:</a>
-    <input type="email" name="email" placeholder="email@example.com">
-    <input type="password" name="password" placeholder="password">
-    <input type="submit" value="log in">
-  </form>
+    <%}else{%>
 
-  <%}%>
+    <form class="submission-form" method="POST" action="/login">
+      <h3>log in</h3>
+      
+      &nbsp;
+      <h4>Enter email and password</h4>
+      &nbsp;
+      <input type="email" name="email" placeholder="email@example.com">
+      <input type="password" name="password" placeholder="password">
+      <button type="submit">log in</button>
+    </form>
+
+    <%}%>
+
+  </div>
 
 </body>
-
 </html>

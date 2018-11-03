@@ -1,25 +1,149 @@
-html{
-  padding:0;
-  margin:0;
-  font-size:10px; 
+/* universal */
+
+html {
+  padding: 0;
+  margin: 0;
+  font-size: 10px;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
-body{
-  padding:50px;
+body {
+
   height: 100%;
-  width: 100%;
-  font-size:1.5rem; 
+  max-width: 100%;
+  font-size: 1.5rem;
 }
 
-form {
-  margin:150px;
+header {
+  height: 3rem;
+  max-width: 100%;
+  padding: 2rem;
+  background-color: cadetblue;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: nowrap;
 }
 
-input{
-  width: 300px;
+.content {
+  padding: 2rem;
+  margin: 0 auto;
+  max-width: 100%;
+}
+
+li {
+  list-style-type: none;
+}
+
+button {
+  background-color: cadetblue;
+  color: white;
+  margin: 1rem;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+h1 {
+  font-family: 'Audiowide', cursive;
+  font-size: 3rem;
+  color: rgb(24, 45, 114);
+}
+
+h2 {
+  font-size: 2.75rem;
+  margin: 1rem auto;
+}
+
+h3 {
+  color: rgb(24, 45, 114);
+  font-size: 2.5rem;
+  margin: 1rem;
+}
+
+h4 {
+  font-size: 1.75rem;
+  margin: auto 0.5rem;
+}
+
+h5 {
+  font-size: 1.5rem;
+  margin: auto 0.5rem;
+}
+
+/* custom */
+
+/* header */
+#top-right {
+  display: flex;
+}
+
+#userInfo {
+  display: flex;
+}
+
+#siteLink {
+  color: white;
+  min-width: 10rem;
+  margin-left: 2.5rem;
+
+}
+
+#siteLink a {
+  margin-left: 0.5rem;
+}
+
+#siteLink a:visited,
+#siteLink a:link {
+  color: white;
+}
+
+/* login & register page */
+.submission-form {
+  text-align: center;
+  margin: 3rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+
+.submission-form input {
+  margin: 0 3em;
+  max-width: 400px;
   cursor: "pointer";
 }
 
-h1{
-  font-size: 3rem;
+/* other pages */
+.list a {
+  color: black
+}
+
+.list a:visited,
+.list a:link {
+  color: black;
+}
+
+.button {
+  margin: auto 0;
+}
+
+.button:hover {
+  cursor: pointer;
+}
+
+.list {
+  display: flex;
+  align-items: center;
+  margin: 0.5rem 0;
+}
+
+.list * {
+  margin-right: 1rem;
+}
+
+#editForm {
+  margin: 1rem 0;
 }

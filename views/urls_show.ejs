@@ -4,16 +4,23 @@
 <!-- _header has open body tag -->
 <% include ./partials/_header.ejs %>
 
-<ul>
-  <li style="list-style-type:none;">ShortURL:<a href="<%= longURL %>">
-      <%= shortURL %>
-    </a> </li>
-  <form method="POST" action="/urls/<%= shortURL %>">
-    <input name="newUrl" type="text">
-    <input type="submit" value="update">
-  </form>
-</ul>
-<a href="/urls">Back to list</a>
-</body>
+  <div class="content">
+    <h2>Generated URL</h2>
+    
+    <ul>
+      <li class="list">ShortURL:&nbsp;&nbsp;<a href="<%=addressPrefix%><%= shortURL %>">
+          <%= shortURL %>
+        </a> &nbsp; 
+        ( <%= longURL %> )</li>
 
+      <form id="editForm" method="POST" action="/urls/<%= shortURL %>">
+        <input name="newUrl" type="text" placeholder="http://" required>
+        <button type="submit">update linked url</button>
+      </form>
+    </ul>
+
+    <a href="/urls">Back to list</a>
+  </div>
+
+</body>
 </html>
