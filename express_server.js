@@ -291,7 +291,10 @@ app.post("/urls/:id/delete", (req, res) => {
   if (!req.session["user_id"]) {
     res.status(403);
     res.send("Please log-in first!");
-  } else {
+  } else if(!urlDatabase[req.params.id]){
+    res.status(403);
+    res.send("You don't have this short url.");
+  }else{
 
     if (urlDatabase[req.params.id].user_id === users[req.session["user_id"]].id) {
 
