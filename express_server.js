@@ -1,7 +1,7 @@
 var express = require("express");
 var app = express();
 var PORT = 8080; // default port 8080
-var addressPrefix = `http://localhost:${PORT}/`;
+var addressPrefix = `http://localhost:${PORT}/u/`;
 const bcrypt = require('bcrypt');
 var cookieSession = require('cookie-session');
 const bodyParser = require("body-parser");
@@ -132,7 +132,7 @@ app.get("/urls", (req, res) => {
   } else {
 
     let templateVars = {
-      addressPrefix: "http://localhost:8080/u/",
+      addressPrefix,
       user: users[req.session["user_id"]],
       urls: urlsForUser(req.session["user_id"]),
     };
@@ -192,7 +192,7 @@ app.get("/urls/:id", (req, res) => {
   } else {
 
     let templateVars = {
-      addressPrefix: "http://localhost:8080/u/",
+      addressPrefix,
       user: users[req.session["user_id"]],
       shortURL: req.params.id,
       longURL: urlDatabase[req.params.id].url,
