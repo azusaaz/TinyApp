@@ -77,23 +77,30 @@ function urlsForUser(id) {
 }
 //Display urls with the template
 app.get("/urls", (req, res) => {
-  let templateVars = {
-    user: users[req.session["user_id"]],
-    urls: urlsForUser(req.session["user_id"]),
-  };
-  res.render("urls_index", templateVars);
+  if (!req.session["user_id"]) {
+    res.redirect("/login");
+  }else{
+
+    let templateVars = {
+      addressPrefix: "http://localhost:8080/u/",
+      user: users[req.session["user_id"]],
+      urls: urlsForUser(req.session["user_id"]),
+    };
+    res.render("urls_index", templateVars);
+  }
 });
 
 //Display form for new short url
 app.get("/urls/new", (req, res) => {
   if (!req.session["user_id"]) {
     res.redirect("/login");
+  }else{
+    let templateVars = {
+      user: users[req.session["user_id"]],
+    };
+    res.render("urls_new", templateVars);
   }
 
-  let templateVars = {
-    user: users[req.session["user_id"]],
-  };
-  res.render("urls_new", templateVars);
 });
 
 //Register new URL info into urlDatabase
@@ -127,7 +134,7 @@ app.get("/urls/:id", (req, res) => {
   } else {
 
     let templateVars = {
-      addressPrefix,
+      addressPrefix: "http://localhost:8080/u/",
       user: users[req.session["user_id"]],
       shortURL: req.params.id,
       longURL: urlDatabase[req.params.id].url,
@@ -150,13 +157,14 @@ app.get("/register", (req, res) => {
 
   if (req.session["user_id"]) {
     res.redirect("/urls");
-  }
+  }else{
 
   let templateVars = {
     user: users[req.session["user_id"]],
   };
 
   res.render("register", templateVars);
+}
 });
 
 //validate email existence
@@ -177,11 +185,11 @@ app.post("/register", (req, res) => {
 
   if (!req.body.email || !req.body.password) {
     res.status(400);
-    res.send("please send your email and password!");
+    res.send("please enter your email and password!");
 
   } else if (isExistEmail(req.body.email)) {
     res.status(400);
-    res.send("email already exist!");
+    res.send("email already exist! Please log-in.");
 
   } else {
     const hashedPassword = bcrypt.hashSync(req.body.password, 10);
@@ -202,13 +210,14 @@ app.get("/login", (req, res) => {
 
   if (req.session["user_id"]) {
     res.redirect("/urls");
-  }
+  }else{
 
   let templateVars = {
     user: "",
   };
 
   res.render("login", templateVars);
+}
 });
 
 //validate email existence
@@ -225,6 +234,13 @@ function whoHasThisEmail(newEmail) {
 
 //login and store username in a 
 app.post("/login", (req, res) => {
+  
+  if (!req.body.email || !req.body.password) {
+    res.status(400);
+    res.send("please enter your email and password!");
+
+  }else{
+
   let user = whoHasThisEmail(req.body.email);
 
   if (user) {
@@ -238,13 +254,14 @@ app.post("/login", (req, res) => {
 
     } else {
       res.status(403);
-      res.send("password doesn't match, please try again");
+      res.send("password doesn't match, please try again.");
     }
 
   } else {
     res.status(403);
-    res.send("cannot find user");
+    res.send("cannot find user. Please register first.");
   }
+}
 });
 
 //logout and clear cookie
