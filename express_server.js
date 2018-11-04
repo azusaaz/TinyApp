@@ -33,16 +33,27 @@ var urlDatabase = {
   "b2xVn2": {
     url: "http://www.lighthouselabs.ca",
     user_id: "userRandomID",
-    generated: "2018-11-04T01:46:12.952Z",
-    accessed: 10,
-    user_count: 3,
+    generated: "Sun Nov 04 2018 11:55:05 GMT-0500 (Eastern Standard Time)",
+    accessed: 0,
+    user_count: 0,
+    access_log: [ //structure sample
+      // { 
+      //   visitor_id: "cn4dns",
+      //   visited: "2018-11-05T01:46:12.952Z",
+      // },
+      // { 
+      //   visitor_id: "c33bns",
+      //   visited: "2018-11-06T02:47:12.952Z",
+      // }
+    ],
   },
   "9sm5xK": {
     url: "http://www.google.com",
     user_id: "user2RandomID",
-    generated: "2018-11-04T01:46:12.952Z",
-    accessed: 20,
-    user_count: 5,
+    generated: "Sun Nov 04 2018 11:55:05 GMT-0500 (Eastern Standard Time)",
+    accessed: 0,
+    user_count: 0,
+    access_log: [],
   },
 };
 
@@ -120,6 +131,16 @@ function whoHasThisEmail(newEmail) {
   return result;
 }
 
+//Check accessed user visited before
+function hasVisited(url, visitor_id) {
+  let result = false;
+  for (log of url.access_log) {
+    if (log.visitor_id === visitor_id) {
+      result = true;
+    }
+  }
+  return result;
+}
 
 ///////////////////////////// routes /////////////////////////////
 
@@ -136,6 +157,7 @@ app.get("/", (req, res) => {
 
 //Display url list
 app.get("/urls", (req, res) => {
+
   if (!req.session["user_id"]) {
     res.redirect("/login");
   } else {
@@ -172,6 +194,8 @@ app.post("/urls", (req, res) => {
     generated: new Date(),
     accessed: 0,
     user_count: 0,
+    access_log: [],
+
   };
   res.redirect(`/urls/${newShortURL}`);
 });
@@ -182,16 +206,39 @@ app.get("/u/:shortURL", (req, res) => {
     res.status(403);
     res.send("This short url doesn't exist.");
   } else {
-   // if (!users[req.session["user_id"]]){
+
+    //count access except current login user
+    if (!users[req.session["user_id"]]) {
       urlDatabase[req.params.shortURL].accessed += 1;
-   // }
-    
+
+      if (hasVisited(urlDatabase[req.params.shortURL], req.session["visitor_id"])) {
+
+        urlDatabase[req.params.shortURL].access_log.push({
+          visitor_id: req.session["visitor_id"],
+          visited: new Date(),
+        });
+
+      } else {
+
+        // count new access user
+        urlDatabase[req.params.shortURL].user_count += 1;
+        let newVisitorId = generateRandomString();
+        req.session.visitor_id = newVisitorId; //make cookie
+
+        urlDatabase[req.params.shortURL].access_log.push({
+          visitor_id: newVisitorId,
+          visited: new Date(),
+        });
+      }
+    }
+
     let longURL = urlDatabase[req.params.shortURL].url;
     res.redirect(longURL);
   }
 });
 
 //Display one url page for edit or show generated result
+//Display analytics detail of given short URL
 app.get("/urls/:id", (req, res) => {
   if (!req.session["user_id"]) {
     res.status(403);
@@ -211,7 +258,8 @@ app.get("/urls/:id", (req, res) => {
       longURL: urlDataOfId.url,
       generated: urlDataOfId.generated,
       accessed: urlDataOfId.accessed,
-      user_count: urlDataOfId.count,
+      user_count: urlDataOfId.user_count,
+      access_log: urlDataOfId.access_log,
     };
     res.render("urls_show", templateVars);
   }
@@ -221,9 +269,10 @@ app.get("/urls/:id", (req, res) => {
 app.put("/urls/:id", (req, res) => {
   if (urlDatabase[req.params.id].user_id === users[req.session["user_id"]].id) {
     urlDatabase[req.params.id].url = req.body["newUrl"];
-    urlDatabase[req.params.id].generated = new Date(); 
+    urlDatabase[req.params.id].generated = new Date();
     urlDatabase[req.params.id].accessed = 0;
     urlDatabase[req.params.id].user_count = 0;
+    urlDatabase[req.params.id].access_log = [];
   }
 
   res.redirect("/urls");

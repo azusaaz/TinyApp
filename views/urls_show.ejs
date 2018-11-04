@@ -9,21 +9,41 @@
 
     <ul>
       <li class="list">ShortURL:&nbsp;&nbsp;<a href="<%=addressPrefix%><%= shortURL %>">
-          <%= shortURL %>
+        <%=addressPrefix%><%= shortURL %>
         </a> &nbsp; 
         ( <%= longURL %> )</li>
       <li>Data Generated:<%= generated %></li>
-      <li>Short URL Accessed:<%= accessed %></li>
-      <li>Visited User:</li>
+      <li class="list">Total Access Count:&nbsp;<%= accessed %></li>
+      <li class="list">Access User Count :&nbsp;<%= user_count %></li>
 
       <form id="editForm" method="POST" action="/urls/<%= shortURL %>?_method=PUT">
         <input name="newUrl" type="text" placeholder="http://" required>
-        <button type="submit">update original url</button>
+        <button type="submit">update original url</button>(Counter will be reset)
       </form>
     </ul>
 
     <a href="/urls/new">Create Another Short URL</a>&nbsp;&nbsp;<a href="/urls">Back to the list</a>  
+
+    <br>
+    <br>
+    <hr>
+    <h2>Access Log</h2>
+
+   <% if(access_log.length){ 
+     for(visitor of access_log){%>
+    <ul>
+      <li class="list">
+        Visitor ID: &nbsp;<%= visitor.visitor_id %>
+        &nbsp;
+        Visit date: &nbsp;<%= visitor.visited %>
+      </li>
+    </ul>
+  <% }
+    }else{%>
+      <p>There is no log yet.</p>
+  <%} %>
   </div>
 
 </body>
 </html>
+
