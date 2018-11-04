@@ -2,6 +2,12 @@
 
 TinyApp is a full stack web application built with Node and Express that allows users to shorten long URLs. 
 
+## Functions
+- Make shorten URL
+- Count access for each shorten URL
+- Count user of access for each shorten URL
+- Log when user accessed for each shorten URL
+
 ## Pages
 
 Log in Page
@@ -11,7 +17,7 @@ Create new URL Page
 Shorten URL list Page
 !["Shorten URL list Page"](https://github.com/azusaaz/TinyApp/blob/master/docs/list.png)
 Result & Edit Page
-!["Result & Edit Page"](https://github.com/azusaaz/TinyApp/blob/master/docs/edit.png)
+!["Result & Edit Page"](https://github.com/azusaaz/TinyApp/blob/master/docs/detail.png)
 
 ## Dependencies
 
