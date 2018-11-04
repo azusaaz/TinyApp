@@ -169,10 +169,7 @@ app.post("/urls", (req, res) => {
 
 //Redirect to a longURL page from the given shortURL
 app.get("/u/:shortURL", (req, res) => {
-  if (!req.session["user_id"]) {
-    res.status(403);
-    res.send("Please log-in first!");
-  } else if (!urlDatabase[req.params.shortURL]) {
+  if (!urlDatabase[req.params.shortURL]) {
     res.status(403);
     res.send("This short url doesn't exist.");
   } else {
