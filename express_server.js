@@ -1,3 +1,7 @@
+//TODO passing url obj instead of each value
+//TODO code refactoring
+//TODO html spacing
+
 const express = require("express");
 const app = express();
 const PORT = 8080; // default port 8080
