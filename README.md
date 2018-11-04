@@ -16,8 +16,8 @@ Create new URL Page
 !["Create new URL Page"](https://github.com/azusaaz/TinyApp/blob/master/docs/create.png)
 Shorten URL list Page
 !["Shorten URL list Page"](https://github.com/azusaaz/TinyApp/blob/master/docs/list.png)
-Result & Edit Page
-!["Result & Edit Page"](https://github.com/azusaaz/TinyApp/blob/master/docs/detail.png)
+Detail & Edit Page
+!["Detail & Edit Page"](https://github.com/azusaaz/TinyApp/blob/master/docs/detail.png)
 
 ## Dependencies
 
