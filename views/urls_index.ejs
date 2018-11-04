@@ -28,7 +28,7 @@
           <button type="submit">edit url</button>
         </form>
 
-        <form method="POST" action="/urls/<%= url %>/delete">
+        <form method="POST" action="/urls/<%= url %>?_method=DELETE">
           <button type="submit">delete</button>
         </form>
       </li>

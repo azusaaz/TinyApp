@@ -5,9 +5,12 @@ var addressPrefix = `http://localhost:${PORT}/u/`;
 const bcrypt = require('bcrypt');
 var cookieSession = require('cookie-session');
 const bodyParser = require("body-parser");
+var methodOverride = require('method-override')
 
 //for css use
 app.use('/public', express.static(process.cwd() + '/public'));
+
+app.use(methodOverride('_method'));
 
 app.use(bodyParser.urlencoded({
   extended: true
@@ -202,7 +205,7 @@ app.get("/urls/:id", (req, res) => {
 });
 
 //Update original url belongs to the given id
-app.post("/urls/:id", (req, res) => {
+app.put("/urls/:id", (req, res) => {
   if (urlDatabase[req.params.id].user_id === users[req.session["user_id"]].id) {
     urlDatabase[req.params.id].url = req.body["newUrl"];
   }
@@ -313,7 +316,7 @@ app.get("/urls.json", (req, res) => {
 });
 
 //Delete one url data by id
-app.post("/urls/:id/delete", (req, res) => {
+app.delete("/urls/:id", (req, res) => {
 
   if (!req.session["user_id"]) {
     res.status(403);
