@@ -1,11 +1,11 @@
-var express = require("express");
-var app = express();
-var PORT = 8080; // default port 8080
-var addressPrefix = `http://localhost:${PORT}/u/`;
+const express = require("express");
+const app = express();
+const PORT = 8080; // default port 8080
+const addressPrefix = `http://localhost:${PORT}/u/`;
 const bcrypt = require('bcrypt');
-var cookieSession = require('cookie-session');
+const cookieSession = require('cookie-session');
 const bodyParser = require("body-parser");
-var methodOverride = require('method-override')
+const methodOverride = require('method-override')
 
 //for css use
 app.use('/public', express.static(process.cwd() + '/public'));
