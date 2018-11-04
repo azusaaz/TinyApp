@@ -12,6 +12,9 @@
           <%= shortURL %>
         </a> &nbsp; 
         ( <%= longURL %> )</li>
+      <li>Data Generated:<%= generated %></li>
+      <li>Short URL Accessed:<%= accessed %></li>
+      <li>Visited User:</li>
 
       <form id="editForm" method="POST" action="/urls/<%= shortURL %>?_method=PUT">
         <input name="newUrl" type="text" placeholder="http://" required>

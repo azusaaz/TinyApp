@@ -33,10 +33,16 @@ var urlDatabase = {
   "b2xVn2": {
     url: "http://www.lighthouselabs.ca",
     user_id: "userRandomID",
+    generated: "2018-11-04T01:46:12.952Z",
+    accessed: 10,
+    user_count: 3,
   },
   "9sm5xK": {
     url: "http://www.google.com",
     user_id: "user2RandomID",
+    generated: "2018-11-04T01:46:12.952Z",
+    accessed: 20,
+    user_count: 5,
   },
 };
 
@@ -161,8 +167,11 @@ app.post("/urls", (req, res) => {
 
   let newShortURL = generateRandomString();
   urlDatabase[newShortURL] = {
-    "url": req.body.longURL,
-    "user_id": req.session["user_id"],
+    url: req.body.longURL,
+    user_id: req.session["user_id"],
+    generated: new Date(),
+    accessed: 0,
+    user_count: 0,
   };
   res.redirect(`/urls/${newShortURL}`);
 });
@@ -173,7 +182,10 @@ app.get("/u/:shortURL", (req, res) => {
     res.status(403);
     res.send("This short url doesn't exist.");
   } else {
-
+   // if (!users[req.session["user_id"]]){
+      urlDatabase[req.params.shortURL].accessed += 1;
+   // }
+    
     let longURL = urlDatabase[req.params.shortURL].url;
     res.redirect(longURL);
   }
@@ -191,11 +203,15 @@ app.get("/urls/:id", (req, res) => {
 
   } else {
 
+    let urlDataOfId = urlDatabase[req.params.id];
     let templateVars = {
       addressPrefix,
       user: users[req.session["user_id"]],
       shortURL: req.params.id,
-      longURL: urlDatabase[req.params.id].url,
+      longURL: urlDataOfId.url,
+      generated: urlDataOfId.generated,
+      accessed: urlDataOfId.accessed,
+      user_count: urlDataOfId.count,
     };
     res.render("urls_show", templateVars);
   }
@@ -205,6 +221,9 @@ app.get("/urls/:id", (req, res) => {
 app.put("/urls/:id", (req, res) => {
   if (urlDatabase[req.params.id].user_id === users[req.session["user_id"]].id) {
     urlDatabase[req.params.id].url = req.body["newUrl"];
+    urlDatabase[req.params.id].generated = new Date(); 
+    urlDatabase[req.params.id].accessed = 0;
+    urlDatabase[req.params.id].user_count = 0;
   }
 
   res.redirect("/urls");
